@@ -1,0 +1,47 @@
+.page-header
+  %h1
+    Support Issue
+    = @issue.token
+  .row
+    .col-sm-12
+      %p
+        %b Subject:
+        = @issue.header
+
+  .row
+    .col-sm-6
+      %p
+        %b Email:
+        = @issue.email
+    .col-sm-6
+      %p
+        %b Name:
+        = @issue.name
+
+  .row
+    .col-sm-6
+      %p
+        %b State:
+        = @issue.state
+    .col-sm-6
+      %p
+        %b Owner:
+        = @issue.owner.try(:username) || @issue.owner.try(:email) || 'Unassigned'
+-if current_user
+  = link_to 'Edit Issue', edit_issue_path(@issue)
+.panel.panel-info
+  .panel-heading
+    .panel-title
+      Messages:
+    %ul.list-group.messages
+      - @issue.replies.each do |reply|
+        %li.list-group-item.message{class: reply.from_staff? ? 'system' : reply.from_client? ? 'responce' : ''}
+          .body= reply.body
+          .details
+            .author= reply.author.try(:username) || reply.author.try(:email) || 'You'
+            .date= l(reply.created_at, format: :short)
+    = render :partial => "replies/form", :locals => {:issue => @issue}   
+
+
+%hr
+=# link_to 'History', history_path(encrypted_email: @ticket.encrypted_email)

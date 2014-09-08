@@ -1,0 +1,22 @@
+.form-control{
+  &.alert-success {
+    color: inherit;
+    background-color: inherit;
+  }
+}
+.messages{
+  .message{
+    .body{
+      color: #333333;
+      font-size: 90%;
+    }
+    .details{
+      font-size:75%;
+      div{
+        display: inline-block;
+        &.author{color: darkred}
+      }
+    }
+
+  }
+}

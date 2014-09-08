@@ -1,0 +1,29 @@
+%ul#nav
+  - %w(Unassigned Hold Completed All).each do |scope|
+    %li= link_to "#{scope}", {:controller => 'issues', :action => 'index', :scope => "#{scope}"}
+
+- if @issues.present?
+  %h1= 'Issues by status'
+  %table
+    %tr
+      %th Name
+      %th Header
+      %th State
+      %th Owner
+      %th Created At
+      %th
+
+    - @issues.each do |issue|
+      %tr
+        %td= issue.name
+        %td= issue.header
+        %td= issue.state
+        / %td= binding.pry
+        %td= issue.owner.try(:username) || issue.owner.try(:email)
+        %td= l(issue.created_at, format: :long)
+        %td= link_to 'Show replies', issue
+
+  %br
+
+- else
+  %h1 No history

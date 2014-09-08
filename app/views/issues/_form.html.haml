@@ -1,0 +1,40 @@
+= form_for @issue, html: { id: 'issue_form', class: 'form-horizontal'} do |f|
+  - if @issue.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@issue.errors.count, "error")} prohibited this issue from being saved:"
+      %ul
+        - @issue.errors.full_messages.each do |msg|
+          %li= msg
+  .form-group
+    = f.label :name, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.text_field :name, placeholder: Issue.human_attribute_name(:name), class: 'form-control', minlength: "2", required: true
+
+  .form-group
+    = f.label :email, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.text_field :email, placeholder: Issue.human_attribute_name(:email), class: 'form-control', required: true, email: true
+
+  .form-group
+    = f.label :header, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.text_field :header, placeholder: Issue.human_attribute_name(:header), class: 'form-control', required: true
+  - if current_user    
+    .form-group
+      = f.label :owner, class: 'col-sm-2 control-label'
+      .col-sm-10
+        = collection_select(:user, :user, User.all, :id, :email, {:prompt => 'Select Owner'})   
+    .form-group
+      = f.label :status, class: 'col-sm-2 control-label'
+      .col-sm-10
+        = select_tag 'status', options_for_select(Issue::ACTIONS), prompt: 'Select Status'     
+  - if !current_user
+    = f.fields_for(:replies, @issue.replies.build) do |m|
+      .form-group
+        = m.label :body, class: 'col-sm-2 control-label'
+        .col-sm-10
+          = m.text_area :body, row: 5, placeholder: Reply.human_attribute_name(:body), class: 'form-control'
+
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      = f.button :submit

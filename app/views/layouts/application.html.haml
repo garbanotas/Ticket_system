@@ -1,0 +1,22 @@
+!!!
+%html
+  %head
+    %meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1")
+    %title= content_for?(:title) ? yield(:title) : "OnlineSupportSystem"
+    %meta{content: content_for?(:description) ? yield(:description) : "OnlineSupportSystem", name: "description"}
+    = stylesheet_link_tag :application, media: "all"
+    = javascript_include_tag :application
+    = csrf_meta_tags
+    = yield(:head)
+  %body
+    %header.navbar.navbar-inverse.navbar-fixed-top
+
+      = render 'layouts/navigation'
+    #main(role="main")
+      .container
+        .content
+          .row
+            .col-md-12
+              = render 'layouts/messages'
+              = yield
+          %footer

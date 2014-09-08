@@ -1,0 +1,25 @@
+.navbar-header
+  %button.navbar-toggle{ type: "button", data: {toggle: "collapse", target: ".navbar-collapse"} }
+    %span.sr-only Toggle navigation
+    %span.icon-bar
+    %span.icon-bar
+    %span.icon-bar
+  = link_to( root_path, class: 'navbar-brand' ) do
+    %i.fa.fa-home
+    Home
+%nav.collapse.navbar-collapse(role="navigation")
+  %ul.nav.navbar-nav
+    /default site menu
+  %ul.nav.navbar-nav.navbar-right
+    - if user_signed_in?
+      / %li= link_to "#{current_user.username}" || "#{current_user.email}", current_user
+      %li= link_to "Logout", destroy_user_session_path, :method => :delete
+      %li= link_to "Issues", issues_path
+    - else
+      %li= link_to "Sign as Admin", new_user_session_path
+      %li
+        = link_to( new_issue_path ) do
+          %i.fa.fa-envelope
+            Support
+       
+

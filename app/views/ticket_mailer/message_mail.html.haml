@@ -1,0 +1,16 @@
+%h3
+  Hello:
+  = @issue.name
+%p
+%h5
+  - if @issue.replies.last.from_client?
+    Response:
+  - else
+    You sent to support:
+- @issue.replies.ordered.each_with_index do |issue, i|
+  %p
+  = simple_format(issue.body, style: "margin-left: #{15*i}px")
+%p
+%p= link_to('Show Ticket', issue_url(@issue))
+%hr
+/ %p= link_to('Support Tickets History', history_url(encrypted_email: @ticket.encrypted_email))

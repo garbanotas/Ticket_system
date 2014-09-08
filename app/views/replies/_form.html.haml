@@ -1,0 +1,9 @@
+= form_for @issue, html: { id: 'message_form', class: 'form-horizontal'} do |f|
+  = f.fields_for :reply do |af|
+    .form-group
+      = af.label :reply, class: 'col-sm-2 control-label'
+      .col-sm-10
+        = af.text_area :body, placeholder: Issue.human_attribute_name(:body), class: 'form-control', minlength: "2", required: true
+    .form-group
+      .col-sm-offset-2.col-sm-10
+        = f.button :submit  

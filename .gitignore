@@ -1,0 +1,27 @@
+*.rbc
+*.sassc
+.sass-cache
+capybara-*.html
+.rspec
+.rvmrc
+/.idea/*
+/.bundle
+/vendor/bundle
+/log/*.log
+/log/*.pid
+/tmp/*
+/db/*.sqlite3
+/db/*.sqlite3-journal
+/public/system/*
+/coverage/
+/spec/tmp/*
+**.orig
+rerun.txt
+pickle-email-*.html
+.project
+
+# Ignore application configuration
+#/config/application.yml
+
+/config/*.sphinx.conf
+/db/sphinx
